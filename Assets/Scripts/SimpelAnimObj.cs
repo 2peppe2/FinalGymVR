@@ -8,12 +8,14 @@ public class SimpelAnimObj : MonoBehaviour
     
 
     Vector3 currentPos;
-    public float movmentX, movmentY, movmentZ;
+    public bool calledFromOtherScript = false;
+    public float movmentX, speedX, movmentY, speedY, movmentZ, speedZ;
     float orgX, orgY, orgZ; //original values
-    float moveX = 0, moveY = 0, moveZ = 0; //will be moved this update
+    float moveX = 0,  moveY = 0,  moveZ = 0; //will be moved this update
+    int xDirection = 0, yDirection = 0, zDirection = 0; // 0 = not set, 1 positive, 2 = negative
+    bool called = false;
 
-
-    public float speed;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,29 +23,198 @@ public class SimpelAnimObj : MonoBehaviour
         orgX = originalPos.x;
         orgY = originalPos.y;
         orgZ = originalPos.z;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentPos = transform.position;
-        if (currentPos.x < orgX + movmentX)
+        if(calledFromOtherScript == true)
         {
-            moveX = speed * Time.deltaTime;
-        }else if(currentPos.x > orgX + movmentX)
+            if (called)
+            {
+                moveX = 0;
+                moveY = 0;
+                moveZ = 0;
+                currentPos = transform.position;
+
+                //X
+                if (currentPos.x < orgX + movmentX)
+                {
+
+                    if (xDirection != 2)
+                    {
+
+                        moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
+                        xDirection = 1;
+                    }
+
+                }
+                else if (currentPos.x > orgX + movmentX)
+                {
+
+                    if (xDirection != 1)
+                    {
+
+                        moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
+                        xDirection = 2;
+                    }
+
+
+
+                }
+                //Y
+                if (currentPos.y < orgY + movmentY)
+                {
+
+                    if (yDirection != 2)
+                    {
+
+                        moveY = speedY * Time.deltaTime; //flyttar plus på Y axeln
+                        yDirection = 1;
+                    }
+
+                }
+                else if (currentPos.y > orgY + movmentY)
+                {
+
+                    if (yDirection != 1)
+                    {
+
+                        moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
+                        yDirection = 2;
+                    }
+
+
+
+                }
+                //Z
+                if (currentPos.z < orgZ + movmentZ)
+                {
+
+                    if (zDirection != 2)
+                    {
+
+                        moveZ = speedZ * Time.deltaTime; //flyttar plus på Z axeln
+                        zDirection = 1;
+                    }
+
+                }
+                else if (currentPos.z > orgZ + movmentZ)
+                {
+
+                    if (zDirection != 1)
+                    {
+
+                        moveZ = -speedZ * Time.deltaTime; //flyttar minus på Z axeln
+                        zDirection = 2;
+                    }
+
+
+
+                }
+
+                transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
+            }
+        }
+        else
         {
-            moveX = -speed * Time.deltaTime;
-        }else if(currentPos.x == orgX + movmentX)
-        {
-            //marginaler
-            Debug.Log("X animation done");
+            moveX = 0;
+            moveY = 0;
+            moveZ = 0;
+            currentPos = transform.position;
+
+            //X
+            if (currentPos.x < orgX + movmentX)
+            {
+
+                if (xDirection != 2)
+                {
+
+                    moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
+                    xDirection = 1;
+                }
+
+            }
+            else if (currentPos.x > orgX + movmentX)
+            {
+
+                if (xDirection != 1)
+                {
+
+                    moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
+                    xDirection = 2;
+                }
+
+
+
+            }
+            //Y
+            if (currentPos.y < orgY + movmentY)
+            {
+
+                if (yDirection != 2)
+                {
+
+                    moveY = speedY * Time.deltaTime; //flyttar plus på Y axeln
+                    yDirection = 1;
+                }
+
+            }
+            else if (currentPos.y > orgY + movmentY)
+            {
+
+                if (yDirection != 1)
+                {
+
+                    moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
+                    yDirection = 2;
+                }
+
+
+
+            }
+            //Z
+            if (currentPos.z < orgZ + movmentZ)
+            {
+
+                if (zDirection != 2)
+                {
+
+                    moveZ = speedZ * Time.deltaTime; //flyttar plus på Z axeln
+                    zDirection = 1;
+                }
+
+            }
+            else if (currentPos.z > orgZ + movmentZ)
+            {
+
+                if (zDirection != 1)
+                {
+
+                    moveZ = -speedZ * Time.deltaTime; //flyttar minus på Z axeln
+                    zDirection = 2;
+                }
+
+
+
+            }
+
+            transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
+
+            //Debug.Log(currentPos.ToString());
+
+            //transform.position = new Vector3(currentPos.x +  speed* Time.deltaTime, currentPos.y, currentPos.z);
+
         }
 
-        transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
 
-        Debug.Log(currentPos.ToString());
+    }
+
+    public void StartTransform()
+    {
+        called = true;
         
-        //transform.position = new Vector3(currentPos.x +  speed* Time.deltaTime, currentPos.y, currentPos.z);
-
     }
 }

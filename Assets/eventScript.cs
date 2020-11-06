@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 
@@ -14,6 +15,7 @@ namespace Valve.VR.InteractionSystem.Sample
     {
         public HoverButton hoverButton;
         
+        public UnityEvent buttonCliced;
         AudioSource audioSource;
         AudioSource audioData;
         bool playing = false;
@@ -38,12 +40,17 @@ namespace Valve.VR.InteractionSystem.Sample
             {
                 audioData.Play(0);
                 playing = true;
+
+                buttonCliced.Invoke();
+
             }
             else
             {
                 audioData.Pause();
                 playing = false;
             }
+
+
         }
     }
 }
