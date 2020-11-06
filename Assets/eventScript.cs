@@ -16,14 +16,16 @@ namespace Valve.VR.InteractionSystem.Sample
         
         AudioSource audioSource;
         AudioSource audioData;
+        bool playing = false;
 
         // Start is called before the first frame update
         void Start()
         {
             //Fetch the AudioSource from the GameObject
             
-            audioData = GetComponent<AudioSource>();
-            audioData.Play(0);
+            
+                audioData = GetComponent<AudioSource>();
+
             hoverButton.onButtonDown.AddListener(OnButtonDown);
 
         }
@@ -32,9 +34,16 @@ namespace Valve.VR.InteractionSystem.Sample
         private void OnButtonDown(Hand hand)
         {
             Debug.Log("Button pressed", hoverButton);
-
-
-            audioData.Pause();
+            if (!playing)
+            {
+                audioData.Play(0);
+                playing = true;
+            }
+            else
+            {
+                audioData.Pause();
+                playing = false;
+            }
         }
     }
 }
