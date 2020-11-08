@@ -42,12 +42,18 @@ namespace Valve.VR.Extras
             holder.transform.parent = this.transform;
             holder.transform.localPosition = Vector3.zero;
             holder.transform.localRotation = Quaternion.identity;
+            //holder.transform.localPosition = new Vector3(holder.transform.eulerAngles.x, holder.transform.eulerAngles.y + 180, holder.transform.eulerAngles.z);
+
 
             pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pointer.transform.parent = holder.transform;
             pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
-            pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
+            pointer.transform.localPosition = new Vector3(0f, 0f, 0f);
             pointer.transform.localRotation = Quaternion.identity;
+            //pointer.transform.localRotation = Quaternion.Euler(30, 0, 0);
+            //Debug.Log("Rotation", pointer.transform);
+            
+
             BoxCollider collider = pointer.GetComponent<BoxCollider>();
             if (addRigidBody)
             {
