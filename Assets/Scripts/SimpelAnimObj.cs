@@ -5,17 +5,19 @@ using UnityEngine;
 public class SimpelAnimObj : MonoBehaviour
 {
 
-    
 
+    
     Vector3 currentPos;
     public bool calledFromOtherScript = false;
+    public float delay;
     public float movmentX, speedX, movmentY, speedY, movmentZ, speedZ;
     float orgX, orgY, orgZ; //original values
     float moveX = 0,  moveY = 0,  moveZ = 0; //will be moved this update
     int xDirection = 0, yDirection = 0, zDirection = 0; // 0 = not set, 1 positive, 2 = negative
     bool called = false;
+    private bool isCoroutineExecuting = false;
+    private bool delayDone = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class SimpelAnimObj : MonoBehaviour
         orgX = originalPos.x;
         orgY = originalPos.y;
         orgZ = originalPos.z;
+
 
         
     }
@@ -34,88 +37,92 @@ public class SimpelAnimObj : MonoBehaviour
         {
             if (called)
             {
-                moveX = 0;
-                moveY = 0;
-                moveZ = 0;
-                currentPos = transform.position;
-
-                //X
-                if (currentPos.x < orgX + movmentX)
+                StartCoroutine(ExecuteAfterTime(delay));
+                if (delayDone == true)
                 {
+                    moveX = 0;
+                    moveY = 0;
+                    moveZ = 0;
+                    currentPos = transform.position;
 
-                    if (xDirection != 2)
+                    //X
+                    if (currentPos.x < orgX + movmentX)
                     {
 
-                        moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
-                        xDirection = 1;
+                        if (xDirection != 2)
+                        {
+
+                            moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
+                            xDirection = 1;
+                        }
+
                     }
-
-                }
-                else if (currentPos.x > orgX + movmentX)
-                {
-
-                    if (xDirection != 1)
+                    else if (currentPos.x > orgX + movmentX)
                     {
 
-                        moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
-                        xDirection = 2;
+                        if (xDirection != 1)
+                        {
+
+                            moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
+                            xDirection = 2;
+                        }
+
+
+
                     }
-
-
-
-                }
-                //Y
-                if (currentPos.y < orgY + movmentY)
-                {
-
-                    if (yDirection != 2)
+                    //Y
+                    if (currentPos.y < orgY + movmentY)
                     {
 
-                        moveY = speedY * Time.deltaTime; //flyttar plus på Y axeln
-                        yDirection = 1;
+                        if (yDirection != 2)
+                        {
+
+                            moveY = speedY * Time.deltaTime; //flyttar plus på Y axeln
+                            yDirection = 1;
+                        }
+
                     }
-
-                }
-                else if (currentPos.y > orgY + movmentY)
-                {
-
-                    if (yDirection != 1)
+                    else if (currentPos.y > orgY + movmentY)
                     {
 
-                        moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
-                        yDirection = 2;
+                        if (yDirection != 1)
+                        {
+
+                            moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
+                            yDirection = 2;
+                        }
+
+
+
                     }
-
-
-
-                }
-                //Z
-                if (currentPos.z < orgZ + movmentZ)
-                {
-
-                    if (zDirection != 2)
+                    //Z
+                    if (currentPos.z < orgZ + movmentZ)
                     {
 
-                        moveZ = speedZ * Time.deltaTime; //flyttar plus på Z axeln
-                        zDirection = 1;
+                        if (zDirection != 2)
+                        {
+
+                            moveZ = speedZ * Time.deltaTime; //flyttar plus på Z axeln
+                            zDirection = 1;
+                        }
+
                     }
-
-                }
-                else if (currentPos.z > orgZ + movmentZ)
-                {
-
-                    if (zDirection != 1)
+                    else if (currentPos.z > orgZ + movmentZ)
                     {
 
-                        moveZ = -speedZ * Time.deltaTime; //flyttar minus på Z axeln
-                        zDirection = 2;
+                        if (zDirection != 1)
+                        {
+
+                            moveZ = -speedZ * Time.deltaTime; //flyttar minus på Z axeln
+                            zDirection = 2;
+                        }
+
+
+
                     }
 
-
-
+                    transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
                 }
-
-                transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
             }
         }
         else
@@ -216,5 +223,17 @@ public class SimpelAnimObj : MonoBehaviour
     {
         called = true;
         
+    }
+
+
+    
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        if (isCoroutineExecuting)
+            yield break;
+        isCoroutineExecuting = true;
+        yield return new WaitForSeconds(time);
+        delayDone = true;
+        isCoroutineExecuting = false;
     }
 }
