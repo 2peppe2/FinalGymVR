@@ -17,6 +17,7 @@ public class SimpelAnimObj : MonoBehaviour
     bool called = false;
     private bool isCoroutineExecuting = false;
     private bool delayDone = false;
+    private bool gobackCalled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class SimpelAnimObj : MonoBehaviour
     {
         if(calledFromOtherScript == true)
         {
+            gobackCalled = false;
             if (called)
             {
                 StartCoroutine(ExecuteAfterTime(delay));
@@ -108,6 +110,99 @@ public class SimpelAnimObj : MonoBehaviour
 
                     }
                     else if (currentPos.z > orgZ + movmentZ)
+                    {
+
+                        if (zDirection != 1)
+                        {
+
+                            moveZ = -speedZ * Time.deltaTime; //flyttar minus på Z axeln
+                            zDirection = 2;
+                        }
+
+
+
+                    }
+
+                    transform.position = new Vector3(currentPos.x + moveX, currentPos.y + moveY, currentPos.z + moveZ);
+                }
+
+
+            }
+
+            if (gobackCalled)
+            {
+                called = false;
+                StartCoroutine(ExecuteAfterTime(delay));
+                if (delayDone == true)
+                {
+                    moveX = 0;
+                    moveY = 0;
+                    moveZ = 0;
+                    currentPos = transform.position;
+
+                    //X
+                    if (currentPos.x < orgX)
+                    {
+
+                        if (xDirection != 2)
+                        {
+
+                            moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
+                            xDirection = 1;
+                        }
+
+                    }
+                    else if (currentPos.x > orgX )
+                    {
+
+                        if (xDirection != 1)
+                        {
+
+                            moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
+                            xDirection = 2;
+                        }
+
+
+
+                    }
+                    //Y
+                    if (currentPos.y < orgY)
+                    {
+
+                        if (yDirection != 2)
+                        {
+
+                            moveY = speedY * Time.deltaTime; //flyttar plus på Y axeln
+                            yDirection = 1;
+                        }
+
+                    }
+                    else if (currentPos.y > orgY )
+                    {
+
+                        if (yDirection != 1)
+                        {
+
+                            moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
+                            yDirection = 2;
+                        }
+
+
+
+                    }
+                    //Z
+                    if (currentPos.z < orgZ )
+                    {
+
+                        if (zDirection != 2)
+                        {
+
+                            moveZ = speedZ * Time.deltaTime; //flyttar plus på Z axeln
+                            zDirection = 1;
+                        }
+
+                    }
+                    else if (currentPos.z > orgZ )
                     {
 
                         if (zDirection != 1)
@@ -225,6 +320,10 @@ public class SimpelAnimObj : MonoBehaviour
         
     }
 
+    public void GoBackToOrgin()
+    {
+        gobackCalled = true;
+    }
 
     
     IEnumerator ExecuteAfterTime(float time)
