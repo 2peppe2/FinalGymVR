@@ -146,7 +146,7 @@ public class SimpelAnimObj : MonoBehaviour
 
                         if (xDirection != 2)
                         {
-
+                            
                             moveX = speedX * Time.deltaTime; //flyttar plus på X axeln
                             xDirection = 1;
                         }
@@ -157,7 +157,7 @@ public class SimpelAnimObj : MonoBehaviour
 
                         if (xDirection != 1)
                         {
-
+                            
                             moveX = -speedX * Time.deltaTime; //flyttar minus på X axeln
                             xDirection = 2;
                         }
@@ -182,7 +182,7 @@ public class SimpelAnimObj : MonoBehaviour
 
                         if (yDirection != 1)
                         {
-
+                            Debug.Log("hej jag kom git iaf");
                             moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
                             yDirection = 2;
                         }
