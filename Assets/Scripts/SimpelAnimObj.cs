@@ -36,9 +36,10 @@ public class SimpelAnimObj : MonoBehaviour
     {
         if(calledFromOtherScript == true)
         {
-            gobackCalled = false;
+            //flyttar den till vald position
             if (called)
             {
+                
                 StartCoroutine(ExecuteAfterTime(delay));
                 if (delayDone == true)
                 {
@@ -128,10 +129,11 @@ public class SimpelAnimObj : MonoBehaviour
 
 
             }
-
-            if (gobackCalled)
+            //flyttar 
+            if (gobackCalled == true)
             {
-                called = false;
+                
+                
                 StartCoroutine(ExecuteAfterTime(delay));
                 if (delayDone == true)
                 {
@@ -182,7 +184,7 @@ public class SimpelAnimObj : MonoBehaviour
 
                         if (yDirection != 1)
                         {
-                            Debug.Log("hej jag kom git iaf");
+                            
                             moveY = -speedY * Time.deltaTime; //flyttar minus på Y axeln
                             yDirection = 2;
                         }
@@ -317,12 +319,15 @@ public class SimpelAnimObj : MonoBehaviour
     public void StartTransform()
     {
         called = true;
-        
+        gobackCalled = false;
+        xDirection = 0; yDirection = 0; zDirection = 0;
     }
 
     public void GoBackToOrgin()
     {
         gobackCalled = true;
+        called = false;
+        xDirection = 0; yDirection = 0; zDirection = 0;
     }
 
     
