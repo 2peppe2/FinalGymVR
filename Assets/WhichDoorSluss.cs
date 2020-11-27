@@ -12,6 +12,7 @@ public class WhichDoorSluss : MonoBehaviour
     public UnityEvent stäng1;
     public UnityEvent öppna2;
     public UnityEvent stäng2;
+    public UnityEvent playSmoke;
     private bool isCoroutineExecuting = false; private bool isCoroutineExecuting2 = false; private bool isCoroutineExecuting3 = false;
     private bool delayDone = false; private bool delayDone2 = false; private bool delayDone3 = false;
     private bool gobackCalled = false;
@@ -49,6 +50,7 @@ public class WhichDoorSluss : MonoBehaviour
                     if(Spelad == false)
                     {
                         audioSource.Play(0);
+                        playSmoke.Invoke();
                         Spelad = true;
                     }
                     StartCoroutine(ExecuteAfterTime2(5));
@@ -93,6 +95,7 @@ public class WhichDoorSluss : MonoBehaviour
                     if (Spelad == false)
                     {
                         audioSource.Play(0);
+                        playSmoke.Invoke();
                         Spelad = true;
                     }
                     StartCoroutine(ExecuteAfterTime2(5));
