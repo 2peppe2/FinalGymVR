@@ -26,8 +26,7 @@ public class ConstantMove : MonoBehaviour
         moveZ = 0;
         Vector3 currentPos = transform.position;
 
-        if (tillbaka == false)
-        {
+       if(tillbaka == false) { 
             if (currentPos.z < maxZ)
             {
 
@@ -38,8 +37,10 @@ public class ConstantMove : MonoBehaviour
                     zDirection = 1;
                 }
                 else
-                {
+                    {
+                    //nu ska jag vända
                     tillbaka = true;
+                    zDirection = 0;
                 }
 
             }
@@ -55,12 +56,14 @@ public class ConstantMove : MonoBehaviour
                 else
                 {
                     tillbaka = true;
+                    zDirection = 0;
                 }
 
 
 
             }
-        }
+
+       }
         else
         {
             if (currentPos.z < minZ)
