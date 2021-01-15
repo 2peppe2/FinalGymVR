@@ -17,6 +17,7 @@ public class whenToBreakStuff : MonoBehaviour
     void Start()
     {
         Random random = new Random();
+        startDoomCounter();
     }
 
     // Update is called once per frame
@@ -53,7 +54,7 @@ public class whenToBreakStuff : MonoBehaviour
 
     public void startDoomCounter()
     {
-        time = Random.Range(20, 300); 
+        time = Random.Range(20, 30); 
         startTime = true;
         
     }
