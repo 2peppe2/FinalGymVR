@@ -14,6 +14,7 @@ namespace Valve.VR.Extras
     {
         public SteamVR_Action m_Action;
         public GameObject snaper;
+        public GameObject parentObject;
         public UnityEvent debugAudio;
         private Transform snaperTransform;
         private MeshFilter otherMesh;
@@ -44,7 +45,7 @@ namespace Valve.VR.Extras
                 otherMesh = snaper.GetComponent<MeshFilter>();
 
                 snaper.GetComponent<Renderer>().enabled = false;
-
+                parentObject.GetComponent<Rigidbody>().useGravity = false;
             }
             else
             {
