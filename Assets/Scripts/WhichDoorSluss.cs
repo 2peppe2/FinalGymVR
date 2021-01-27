@@ -38,6 +38,7 @@ public class WhichDoorSluss : MonoBehaviour
             {
                 if (moved[1] == false)
                 {
+                    
                     stäng1.Invoke();
                     moved[1] = true;
                 }

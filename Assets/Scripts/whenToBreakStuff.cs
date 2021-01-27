@@ -54,7 +54,8 @@ public class whenToBreakStuff : MonoBehaviour
 
     public void startDoomCounter()
     {
-        time = Random.Range(20, 30); 
+        //ändra tiden
+        time = Random.Range(2, 3); 
         startTime = true;
         
     }

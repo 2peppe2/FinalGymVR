@@ -15,7 +15,7 @@ namespace Valve.VR.Extras
         public SteamVR_Action m_Action;
         public GameObject snaper;
         public GameObject parentObject;
-        public UnityEvent debugAudio;
+        public UnityEvent placed;
         private Transform snaperTransform;
         private MeshFilter otherMesh;
         private MeshFilter thisMesh;
@@ -46,6 +46,7 @@ namespace Valve.VR.Extras
 
                 snaper.GetComponent<Renderer>().enabled = false;
                 parentObject.GetComponent<Rigidbody>().useGravity = false;
+                placed.Invoke();
             }
             else
             {
@@ -59,7 +60,7 @@ namespace Valve.VR.Extras
             if (GameObject.ReferenceEquals(snaper, other.gameObject))
             {
                 inside = true;
-                debugAudio.Invoke();
+                
             }
         }
         void OnTriggerExit(Collider other)
