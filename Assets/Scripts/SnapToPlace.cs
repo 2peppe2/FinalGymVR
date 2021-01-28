@@ -20,12 +20,14 @@ namespace Valve.VR.Extras
         private MeshFilter otherMesh;
         private MeshFilter thisMesh;
         bool inside = false;
+        bool snaperVisable = false;
         
 
         void Start()
         {
             snaper.transform.localScale = this.transform.localScale;
-            
+            snaper.GetComponent<Renderer>().enabled = false;
+
         }
         private void Awake()
         {
@@ -52,6 +54,10 @@ namespace Valve.VR.Extras
             {
                 
             }
+            if(snaperVisable == true)
+            {
+                snaper.GetComponent<Renderer>().enabled = true;
+            }
         }
 
 
@@ -71,5 +77,11 @@ namespace Valve.VR.Extras
 
             }
         }
+
+        public void snapperVisible()
+        {
+            snaperVisable = true;
+        }
+
     }
 }
