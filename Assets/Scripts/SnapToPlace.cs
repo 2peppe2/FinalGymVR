@@ -25,7 +25,7 @@ namespace Valve.VR.Extras
 
         void Start()
         {
-            snaper.transform.localScale = this.transform.localScale;
+            //snaper.transform.localScale = this.transform.localScale;
             snaper.GetComponent<Renderer>().enabled = false;
 
         }
@@ -56,7 +56,7 @@ namespace Valve.VR.Extras
             }
             if(snaperVisable == true)
             {
-                snaper.GetComponent<Renderer>().enabled = true;
+                //snaper.GetComponent<Renderer>().enabled = true;
             }
         }
 

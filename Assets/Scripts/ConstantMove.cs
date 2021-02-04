@@ -10,6 +10,7 @@ public class ConstantMove : MonoBehaviour
     private float minZ, maxZ;
     int zDirection = 0;
     bool tillbaka = false;
+    bool shouldMove = true;
     
 
     // Start is called before the first frame update
@@ -22,88 +23,95 @@ public class ConstantMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        moveZ = 0;
-        Vector3 currentPos = transform.position;
-
-       if(tillbaka == false) { 
-            if (currentPos.z < maxZ)
-            {
-
-                if (zDirection != 2)
-                {
-
-                    moveZ = speedZ * Time.deltaTime;
-                    zDirection = 1;
-                }
-                else
-                    {
-                    //nu ska jag vända
-                    tillbaka = true;
-                    zDirection = 0;
-                }
-
-            }
-            else if (currentPos.z > maxZ)
-            {
-
-                if (zDirection != 1)
-                {
-
-                    moveZ = -speedZ * Time.deltaTime; //flyttar minus på X axeln
-                    zDirection = 2;
-                }
-                else
-                {
-                    tillbaka = true;
-                    zDirection = 0;
-                }
-
-
-
-            }
-
-       }
-        else
+        if (shouldMove)
         {
-            if (currentPos.z < minZ)
+            moveZ = 0;
+            Vector3 currentPos = transform.position;
+
+            if (tillbaka == false)
             {
-
-                if (zDirection != 2)
+                if (currentPos.z < maxZ)
                 {
 
-                    moveZ = speedZ * Time.deltaTime;
-                    zDirection = 1;
+                    if (zDirection != 2)
+                    {
+
+                        moveZ = speedZ * Time.deltaTime;
+                        zDirection = 1;
+                    }
+                    else
+                    {
+                        //nu ska jag vända
+                        tillbaka = true;
+                        zDirection = 0;
+                    }
+
                 }
-                else
+                else if (currentPos.z > maxZ)
                 {
-                    tillbaka = false;
+
+                    if (zDirection != 1)
+                    {
+
+                        moveZ = -speedZ * Time.deltaTime; //flyttar minus på X axeln
+                        zDirection = 2;
+                    }
+                    else
+                    {
+                        tillbaka = true;
+                        zDirection = 0;
+                    }
+
+
+
                 }
 
             }
-            else if (currentPos.z > minZ)
+            else
             {
-
-                if (zDirection != 1)
+                if (currentPos.z < minZ)
                 {
 
-                    moveZ = -speedZ * Time.deltaTime; //flyttar minus på X axeln
-                    zDirection = 2;
+                    if (zDirection != 2)
+                    {
+
+                        moveZ = speedZ * Time.deltaTime;
+                        zDirection = 1;
+                    }
+                    else
+                    {
+                        tillbaka = false;
+                    }
+
                 }
-                else
+                else if (currentPos.z > minZ)
                 {
-                    tillbaka = false;
+
+                    if (zDirection != 1)
+                    {
+
+                        moveZ = -speedZ * Time.deltaTime; //flyttar minus på X axeln
+                        zDirection = 2;
+                    }
+                    else
+                    {
+                        tillbaka = false;
+                    }
+
+
+
                 }
-
-
-
             }
+            transform.position = new Vector3(currentPos.x, currentPos.y, currentPos.z + moveZ);
         }
-        transform.position = new Vector3(currentPos.x, currentPos.y , currentPos.z + moveZ);
     }
-
     void Knappklickad (int which)   //0 = grön, 1 = gul, 2 = röd;
     {
 
+    }
+
+    public void move (bool rorsig)
+    {
+        shouldMove = rorsig;
     }
 }
