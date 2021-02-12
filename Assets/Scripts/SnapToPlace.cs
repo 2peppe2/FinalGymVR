@@ -21,6 +21,7 @@ namespace Valve.VR.Extras
         private MeshFilter thisMesh;
         bool inside = false;
         bool snaperVisable = false;
+        bool once = false;
         
 
         void Start()
@@ -48,7 +49,12 @@ namespace Valve.VR.Extras
 
                 snaper.GetComponent<Renderer>().enabled = false;
                 parentObject.GetComponent<Rigidbody>().useGravity = false;
-                placed.Invoke();
+                if(once == false)
+                {
+                    placed.Invoke();
+                    once = true;
+                }
+                
             }
             else
             {

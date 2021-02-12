@@ -76,6 +76,7 @@ public class SkrapanHandlerScript : MonoBehaviour
             {
                 greenOK.Invoke();
                 starttime = true;
+                broken = false;
             }
             else
             {

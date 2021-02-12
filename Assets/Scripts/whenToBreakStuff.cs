@@ -52,7 +52,7 @@ public class whenToBreakStuff : MonoBehaviour
                 startTime = false;
             }
 
-        }else if (delayDone2)
+        } if (delayDone2)
         {
             if( donetwice == false)
             {
@@ -63,7 +63,7 @@ public class whenToBreakStuff : MonoBehaviour
 
             }
         }
-        else if (delayDone3)
+         if (delayDone3)
         {
             if(donetrice == false)
             {
@@ -79,7 +79,7 @@ public class whenToBreakStuff : MonoBehaviour
     public void startDoomCounter()
     {
         //ändra tiden
-        time = Random.Range(2, 3); 
+        time = Random.Range(20, 30); 
         startTime = true;
         
     }
@@ -87,8 +87,15 @@ public class whenToBreakStuff : MonoBehaviour
     public void DoomCleard()
     {
         
-
-        startDoomCounter();
+        if(whosTurn> 2)
+        {
+            //KLAR
+        }
+        else
+        {
+            startDoomCounter();
+        }
+        
 
     }
 
